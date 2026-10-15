@@ -1,18 +1,35 @@
+require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
-const app = express();
 
+const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('PASINDU GE BACKEND WEDA KARANAWAAA! 🔥');
+// MongoDB Connect
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connect Wela! 🔥"))
+  .catch(err => console.log("Mongo Error:", err));
+
+const todoSchema = new mongoose.Schema({
+  text: String
 });
 
-app.get('/api/todos', (req, res) => {
-  res.json([{ id: 1, text: "Day 4 Backend Igena gannawa" }]);
+const Todo = mongoose.model('Todo', todoSchema);
+
+app.get('/api/todos', async (req, res) => {
+  const todos = await Todo.find();
+  res.json(todos);
 });
 
-app.listen(5000, () => {
-  console.log('Server is running on http://localhost:5000');
+app.post('/api/todos', async (req, res) => {
+  const newTodo = new Todo({ text: req.body.text });
+  await newTodo.save();
+  res.json(newTodo);
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Backend running on http://localhost:${PORT}`);
 });
