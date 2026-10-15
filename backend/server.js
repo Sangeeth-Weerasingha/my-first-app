@@ -7,10 +7,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connect
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connect Wela! 🔥"))
-  .catch(err => console.log("Mongo Error:", err));
+/// MongoDB Connect - Vercel walata hari vidiya
+let isConnected = false;
+
+async function connectDB() {
+  if (isConnected) return;
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    isConnected = true;
+    console.log("MongoDB Connect Wela! 🔥");
+  } catch (err) {
+    console.log("Mongo Error:", err);
+  }
+}
+
+// Eka request ekakma enna kalin DB connect karanna
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
 
 const todoSchema = new mongoose.Schema({
   text: String
@@ -29,7 +44,12 @@ app.post('/api/todos', async (req, res) => {
   res.json(newTodo);
 });
 
+// Vercel ekata ona eka
+module.exports = app;
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Backend running on http://localhost:${PORT}`);
+  });
+}
