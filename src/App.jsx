@@ -41,7 +41,7 @@ function App() {
 
         <div>
           {tasks.map((t,i) => (
-            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', background: '#f8fafc', padding: '10px', borderRadius: '8px', marginBottom: '8px', alignItems: 'center' }}>
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', background: '#dbeafe', borderLeft: '4px solid #3b82f6', color: '#1e293b', fontWeight: '500', padding: '10px', borderRadius: '8px', marginBottom: '8px', alignItems: 'center' }}>
               <span>{t}</span>
               <button onClick={() => deleteTask(i)} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px', cursor: 'pointer' }}>X</button>
             </div>
