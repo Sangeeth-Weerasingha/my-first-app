@@ -48,9 +48,7 @@ app.delete('/api/todos/:id', async (req, res) => {
 
 module.exports = app;
 
-const PORT = process.env.PORT || 5000;
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Backend running on http://localhost:${PORT}`);
-  });
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on ${PORT}`));
 }
