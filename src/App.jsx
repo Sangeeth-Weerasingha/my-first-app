@@ -4,16 +4,12 @@ function App() {
   const [tasks, setTasks] = useState([])
   const [input, setInput] = useState("")
 
-  // BACKEND EKEN DATA GANNAWA - Meka thamai aluth de!
+  // BACKEND EKEN DATA GANNAWA
   useEffect(() => {
-    fetch"/api"
+    fetch("/api")
       .then(res => res.json())
       .then(data => {
         console.log("Backend eken awa:", data)
-        // Backend eken ena data tasks walata danna
-        if(data.length > 0) {
-          setTasks(data.map(t => t.text))
-        }
       })
   }, [])
 
@@ -23,30 +19,12 @@ function App() {
     setInput("")
   }
 
-  const deleteTask = (index) => {
-    const newTasks = tasks.filter((_, i) => i !== index)
-    setTasks(newTasks)
-  }
-
   return (
-    <div style={{ textAlign: "center", marginTop: "30px" }}>
-      <h1>Day 4 - My MERN App 🔥</h1>
-      <p>Backend Connect kala!</p>
-      
-      <input 
-        value={input} 
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Task ekak danna"
-      />
+    <div>
+      <h1>My First App</h1>
+      <input value={input} onChange={e => setInput(e.target.value)} />
       <button onClick={addTask}>Add</button>
-
-      <div style={{ marginTop: "20px" }}>
-        {tasks.map((task, index) => (
-          <div key={index}>
-            {task} <button onClick={() => deleteTask(index)}>Delete</button>
-          </div>
-        ))}
-      </div>
+      {tasks.map((t,i) => <p key={i}>{t}</p>)}
     </div>
   )
 }
