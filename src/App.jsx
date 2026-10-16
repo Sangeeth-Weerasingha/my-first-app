@@ -33,7 +33,7 @@ function App() {
             value={input} 
             onChange={e => setInput(e.target.value)}
             placeholder="Mokak hari type karanna..."
-            style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #ccc' }}
+            style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #ccc', background: 'white', color: 'black' }}
             onKeyDown={e => e.key === 'Enter' && addTask()}
           />
           <button onClick={addTask} style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>Add</button>
