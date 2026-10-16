@@ -6,7 +6,7 @@ function App() {
 
   // BACKEND EKEN DATA GANNAWA - Meka thamai aluth de!
   useEffect(() => {
-    fetch('http://localhost:5000/api/todos')
+    fetch('/api/todos')
       .then(res => res.json())
       .then(data => {
         console.log("Backend eken awa:", data)
